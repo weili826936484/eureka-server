@@ -1,0 +1,22 @@
+ip: 192.168.0.104
+server:
+  port: 8761
+  address: ${ip}
+eureka:
+  instance:
+    hostname: ${ip}
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+  client:
+  #声明自己是个服务端 registerWithEureka:是否需要注册到其他server上；fetchRegistry：是否需要拉取其他服务信息
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  #关闭自我保护 指的是某次网络问题或者外界因素导致心跳不通 但不让eureka服务剔除这个节点
+  server:
+    enable-self-preservation: true
+
+
+
+
